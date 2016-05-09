@@ -20,9 +20,7 @@ http://www.cnblogs.com/springfor/p/3891896.html
  cuts[2] = 1 b|' '。cuts[3]=0,即第len位置，为空字符，不需要切割。
 
  
-
  上面的这个cuts数组是用来帮助算最小cuts的。
-
  
 
  还需要一个dp二维数组matrixs[i][j]表示字符串[i,j]从第i个位置（包含）到第j个位置（包含） 是否是回文。
