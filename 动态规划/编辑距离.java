@@ -25,11 +25,17 @@
 		
 		2. x != y
 		
-		   (1) 在word1插入y， 那么dp[i][j] = dp[i][j-1] + 1 (word2的前j-1个字符 已经和 word1的前i个字符 相等了 )
+		   (1) 在word1插入y， 那么dp[i][j] = dp[i][j-1] + 1 
+		   （dp[i][j-1]表示word1前i个字符转换为word2前j-1个字符最小的步骤数，现在求word1前i个字符转换为word2前j个字符最小的步骤数，
+		      只需增加1个步骤,也就是将word2的新加入的第j个字符加入进来）
 		 
-		   (2) 在word1删除x， 那么dp[i][j] = dp[i-1][j] + 1 ((word1的前i-1个字符 已经和 word2的前j个字符 相等了 ))
+		   (2) 在word1删除x， 那么dp[i][j] = dp[i-1][j] + 1 
+		   （dp[i-1][j]表示word1前i-1个字符转换为word2前j个字符最小的步骤数，现在求word1前i个字符转换为word2前j个字符最小的步骤数，
+		      只需增加1个步骤,也就是将word1的新加入的第i个字符删除）
 		
 		   (3) 把word1中的x用y来替换，那么dp[i][j] = dp[i-1][j-1] + 1 (word1的前i-1个字符 已经和 word2的前j-1个字符 相等了 )
+		   （dp[i-1][j-1]表示word1前i-1个字符转换为word2前j-1个字符最小的步骤数，现在求word1前i个字符转换为word2前j个字符最小的步骤数，
+		      只需增加1个步骤,也就是将word1的新加入的第i个字符直接转化为word2新加入的第j个字符）
 		
 		 最少的步骤就是取这三个中的最小值。
 		
@@ -53,9 +59,9 @@
     			if(word1.charAt(i-1)==word2.charAt(j-1)){
     				dp[i][j] = dp[i-1][j-1];
     			}else{
-    				int insert = dp[i][j-1] + 1;
-    				int delet = dp[i-1][j] + 1;
-    				int replace = dp[i-1][j-1] + 1;
+    				int insert = dp[i][j-1] + 1; // 在word1插入y
+    				int delet = dp[i-1][j] + 1;  // 在word1删除x
+    				int replace = dp[i-1][j-1] + 1; // 把word1中的x用y来替换
     				dp[i][j] = Math.min(insert, Math.min(delet, replace));
     			}
     		}

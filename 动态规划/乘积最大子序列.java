@@ -32,6 +32,9 @@
 	
 	
 	/* 方法二：
+	 * dpmin[i]: 表示起始元素到第i个元素累乘的最小值
+	 * dpmax[i]: 表示起始元素到第i个元素累乘的最大值
+	 *
 	 * 其实子数组乘积最大值的可能性为：累乘的最大值碰到了一个正数；
 	 * 或者，累乘的最小值（负数），碰到了一个负数。所以每次要保存累乘的最大（正数）和最小值（负数）。
 	 * 同时还有一个选择起点的逻辑，如果之前的最大和最小值同当前元素相乘之后，没有当前元素大（或小）那么当前元素就可作为新的起点。
@@ -39,20 +42,15 @@
 	 * 这种方法只需要遍历一次数组即可，算法时间复杂度为O(n)。
 	 */
     public static int maxProduct(int[] nums) {
-    	
-    	int len = nums.length;
-    	int[] dpmin = new int[nums.length];
-    	int[] dpmax = new int[nums.length];
-    	dpmin[0] = nums[0];
-    	dpmax[0] = nums[0];
+    	int[] dpmin = new int[nums.length+1];
+    	int[] dpmax = new int[nums.length+1];
     	int maxres = nums[0];
-    	for(int i=1;i<len;i++){
-    		dpmin[i] = Math.min(Math.min(dpmin[i-1]*nums[i], dpmax[i-1]*nums[i]), nums[i]);
-    		dpmax[i] = Math.max(Math.max(dpmin[i-1]*nums[i], dpmax[i-1]*nums[i]), nums[i]);
-
-    		if(dpmax[i]>maxres)
-    			maxres = dpmax[i];
+    	dpmin[1] = nums[0];
+    	dpmax[1] = nums[0];
+    	for(int i=2;i<=nums.length;i++){
+    		dpmax[i] = Math.max(nums[i-1],Math.max(dpmax[i-1]*nums[i-1], dpmin[i-1]*nums[i-1]));
+    		dpmin[i] = Math.min(nums[i-1], Math.min(dpmax[i-1]*nums[i-1], dpmin[i-1]*nums[i-1]));
+    		maxres = Math.max(maxres, dpmax[i]);
     	}
-    	
-		return maxres;
+    	return maxres;
     }

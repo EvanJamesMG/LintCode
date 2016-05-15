@@ -30,7 +30,8 @@
 	    res.add(Integer.MIN_VALUE);  
 	    helper(root,res);  
 	    return res.get(0);  
-	}  
+	}
+	
 	private int helper(TreeNode root, ArrayList<Integer> res) {  
 	    if(root == null)  
 	        return 0;  

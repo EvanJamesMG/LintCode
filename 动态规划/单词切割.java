@@ -14,7 +14,8 @@ dict = ["lint","code"]
 /*
     假设dp(i)表示长度为i的字串能否别切分，dp方程如下:
     
-    dp(i) = dp(j) && s[j, i) in dict, 0 
+    dp(i) = dp(j) && s[j, i) in dict 
+	注意：j从0开始，也就是说不包含一个字符串（这种情况有可能，就是左部分不包含字符串，右部分包含在字典中）
  */
 public class Solution {
     /**
@@ -35,4 +36,5 @@ public class Solution {
     	
     	return dp[s.length()];
     }
+	
 }
