@@ -6,6 +6,8 @@
 
 	样例
 	给出S = "rabbbit", T = "rabbit"
+	
+	test
 
 	返回 3
 */	
